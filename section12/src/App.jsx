@@ -12,15 +12,21 @@ import Header from "./components/Header";
 const mockData = [
   {
     id: 1,
-    createDate : new Date().getTime(),
+    createDate : new Date("2024-02-19").getTime(),
     emotionId: 1,
     content: "1번 일기 content"
   },
   {
     id: 2,
-    createDate : new Date().getTime(),
+    createDate : new Date("2024-02-18").getTime(),
     emotionId: 1,
     content: "1번 일기 content"
+  },
+  {
+    id: 3,
+    createDate : new Date("2024-10-20").getTime(),
+    emotionId: 3,
+    content: "3번 일기 content"
   },
 ]
 
@@ -38,8 +44,8 @@ function reducer(state, action){
   }
 }
 
-const DiaryStateContext = createContext();
-const DiaryDispatchContext = createContext();
+export const DiaryStateContext = createContext();
+export const DiaryDispatchContext = createContext();
 
 function App() {
   const [data, dispatch] = useReducer(reducer, mockData);
