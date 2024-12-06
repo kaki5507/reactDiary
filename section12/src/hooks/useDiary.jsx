@@ -22,3 +22,5 @@ const useDiary = ( id ) => {
 
     return curDiaryItem;
 };
+
+export default useDiary;
