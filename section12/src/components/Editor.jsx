@@ -1,31 +1,9 @@
 import "./Editor.css";
 import EmotionItem from "./EmotionItem";
 import Button from "./Button";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-const emotionList = [
-    {
-        emotionId: 1,
-        emotionName: "Good"
-    },
-    {
-        emotionId: 2,
-        emotionName: "Oops"
-    },
-    {
-        emotionId: 3,
-        emotionName: "Feeling Fine"
-    },
-    {
-        emotionId: 4,
-        emotionName: "Sad"
-    },
-    {
-        emotionId: 5,
-        emotionName: "Angry"
-    },
-]
+import { emotionList } from "../util/constants";
 
 // 날짜 반환 함수
 const getStringedDate = (targetDate)=>{
@@ -43,13 +21,22 @@ const getStringedDate = (targetDate)=>{
     return `${year}-${month}-${date}`;
 };
 
-const Editor = ({ onSubmit }) => {
+const Editor = ({ onSubmit , initData }) => {
     const nav = useNavigate();
     const [input, setInput] = useState({
         createDate : new Date(),
         emotionId : 3,
         content : "",
     });
+
+    useEffect(()=>{
+        if (initData) {
+            setInput({
+                ...initData,
+                createDate: new Date(Number(initData.createDate)),
+            });
+        }
+    },[initData]);
 
     const onChangeInput = (e) => {
         let name = e.target.name;

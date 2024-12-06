@@ -4,30 +4,33 @@ import Button from "../components/Button";
 import Editor from "../components/Editor";
 import { useContext , useEffect , useState } from "react";
 import { DiaryDispatchContext,DiaryStateContext } from "../App";
+import useDiary from "../hooks/useDiary";
 
 const Edit = () => {
     const params = useParams();
     const nav = useNavigate();
-    const { onDelete } = useContext(DiaryDispatchContext);
-    const data = useContext(DiaryStateContext);
-    const [curDiaryItem, setCurDiaryItem] = useState();
+    const { onDelete , onUpdate } = useContext(DiaryDispatchContext);
 
-    useEffect(() => {
-        const currentDiaryItem = data.find((item)=>String(item.id) === String(params.id));
-
-        if(!currentDiaryItem){ // 없는 페이지에 들어가면 ? 
-            window.alert("존재하지 않는 페이지.");
-            nav('/', {replace:true});
-        }
-
-        setCurDiaryItem(currentDiaryItem);
-    },[params.id, data])
+    const curDiaryItem = useDiary(params.id);
 
     // 클릭 시 삭제
     const onClickDelete = () => {
         if(window.confirm("일기 삭제 복구 X")){
             onDelete(params.id);
             nav('/',{replace:true});
+        }
+    };
+
+    const onSubmit = (input) => {
+        if(
+            window.confirm("정말 수정하시겠습니까?")
+        ){
+            onUpdate(
+                params.id, 
+                input.createData.getTime(), 
+                input.emotionId, 
+                input.content
+            );
         }
     };
 
@@ -42,7 +45,7 @@ const Edit = () => {
                 <Button text={"삭제하기"} onClick={onClickDelete} type={"NEGATIVE"} />
              }
              />
-             <Editor />
+             <Editor initData={curDiaryItem} />
         </div>
     );
 }
