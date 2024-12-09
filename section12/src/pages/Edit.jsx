@@ -5,6 +5,7 @@ import Editor from "../components/Editor";
 import { useContext , useEffect , useState } from "react";
 import { DiaryDispatchContext,DiaryStateContext } from "../App";
 import useDiary from "../hooks/useDiary";
+import { getStringedDate } from "../util/get-stringed-date";
 
 const Edit = () => {
     const params = useParams();
@@ -27,10 +28,11 @@ const Edit = () => {
         ){
             onUpdate(
                 params.id, 
-                input.createData.getTime(), 
+                input.createDate.getTime(), 
                 input.emotionId, 
                 input.content
             );
+            nav('/',{replace:true});
         }
     };
 
@@ -45,7 +47,7 @@ const Edit = () => {
                 <Button text={"삭제하기"} onClick={onClickDelete} type={"NEGATIVE"} />
              }
              />
-             <Editor initData={curDiaryItem} />
+             <Editor onSubmit={onSubmit} initData={curDiaryItem} />
         </div>
     );
 }

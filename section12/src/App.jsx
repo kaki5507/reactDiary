@@ -9,26 +9,7 @@ import NotFound from "./pages/NotFound";
 import Button from "./components/Button";
 import Header from "./components/Header";
 
-const mockData = [
-  {
-    id: 1,
-    createDate : new Date("2024-02-19").getTime(),
-    emotionId: 1,
-    content: "1번 일기 content"
-  },
-  {
-    id: 2,
-    createDate : new Date("2024-02-18").getTime(),
-    emotionId: 1,
-    content: "1번 일기 content"
-  },
-  {
-    id: 3,
-    createDate : new Date("2024-10-20").getTime(),
-    emotionId: 3,
-    content: "3번 일기 content"
-  },
-]
+const mockData = []
 
 function reducer(state, action){
   
@@ -49,7 +30,7 @@ export const DiaryDispatchContext = createContext();
 
 function App() {
   const [data, dispatch] = useReducer(reducer, mockData);
-  const idRef = useRef(3);
+  const idRef = useRef(1);
 
   // 새로운 일기 추가
   const onCreate = (createDate , emotionId , content) =>{
