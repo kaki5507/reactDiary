@@ -32,6 +32,15 @@ function App() {
   const [data, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(1);
 
+
+  //localStorage.setItem('test', 'hello');
+  //localStorage.setItem("person", JSON.stringify({ name : 'KIM '})); // JSON타입을 문자열로
+
+  //console.log(localStorage.getItem("test"));
+  //console.log(JSON.parse(localStorage.getItem("person"))); // 다시 객체로 변환
+
+  //localStorage.removeItem('test');
+
   // 새로운 일기 추가
   const onCreate = (createDate , emotionId , content) =>{
     dispatch({
